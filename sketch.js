@@ -24,7 +24,8 @@ function setup() {
 	fairy = createSprite(130, 520);
 	fairy.addAnimation("fairyflying",fairyImg);  
 	fairy.scale =0.25;
-	
+	//fairy.debug = true;
+
 	
 
 	star = createSprite(650,30);
@@ -34,11 +35,10 @@ function setup() {
 	engine = Engine.create();
 	world = engine.world;
 
-	starBody = Bodies.circle(650 , 30 , 5 , {restitution:0.5, isStatic:true});
-	World.add(world, starBody);
+	
 	
 	Engine.run(engine);
-
+	
 }
 
 
@@ -46,11 +46,17 @@ function draw() {
   background(bgImg);
   fairy.velocityX=0;
   fairy.velocityY=0;
-  
-
-  drawSprites();
+  fairy.setCollider("circle",485,-35,50)
  
+ 
+drawSprites();
   keyPressed();
+  if(fairy.isTouching(star)) {
+	star.Body.setStatic(star,isStatic);
+	
+}
+
+
   
 }
 
@@ -63,14 +69,13 @@ function keyPressed() {
 	fairy.velocityX = -2;
 }
 if (keyDown("DOWN_ARROW")) {
-	star.velocityY = 4;
-	if( starBody.position.y = 435) {
-		star.y=495;
-		star.velocityY = 0;
+	star.velocityY = 4;	
 	}
+
+	
 }
  
-}
+
 
 
 
